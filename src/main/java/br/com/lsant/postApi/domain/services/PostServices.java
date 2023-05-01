@@ -17,6 +17,10 @@ public class PostServices {
         return repository.findAll();
     }
 
+    public List<Post> findByAuthorId(Long id) {
+        return repository.findByAuthorId(id);
+    }
+
     public Post findById(Long id) {
         return repository.findById(id).orElseThrow(() -> new RuntimeException(
                 "Post not found ID:" + id + ", Type: " + Post.class.getName()
@@ -33,7 +37,7 @@ public class PostServices {
         updatedPost.setDateUpdate(new Date());
         updatedPost.setTitle(post.getTitle());
         updatedPost.setContent(post.getContent());
-        return updatedPost;
+        return repository.save(updatedPost);
     }
 
     public void delete(Long id) {
