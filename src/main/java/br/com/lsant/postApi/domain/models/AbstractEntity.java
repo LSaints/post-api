@@ -18,7 +18,7 @@ public class AbstractEntity implements Serializable {
     @Column(name = "date_issue", nullable = false)
     private Date dateIssue;
 
-    @Column(name = "date_update")
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "date_update")
     private Date dateUpdate;
 }

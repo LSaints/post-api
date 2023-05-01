@@ -30,7 +30,6 @@ public class UserServices {
 
     public User update(User user) {
         User newUser = findById(user.getId());
-        newUser.setDateIssue(user.getDateIssue());
         newUser.setDateUpdate(new Date());
         newUser.setUsername(user.getUsername());
         newUser.setPassword(user.getPassword());
