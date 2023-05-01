@@ -19,7 +19,7 @@ public class UserServices {
 
     public User findById(Long id) {
         return repository.findById(id).orElseThrow(() -> new RuntimeException(
-                "User not found ID:" + id + "Type: " + User.class.getName()
+                "User not found ID:" + id + ", Type: " + User.class.getName()
         ));
     }
 
@@ -29,11 +29,11 @@ public class UserServices {
     }
 
     public User update(User user) {
-        User newUser = findById(user.getId());
-        newUser.setDateUpdate(new Date());
-        newUser.setUsername(user.getUsername());
-        newUser.setPassword(user.getPassword());
-        return repository.save(newUser);
+        User updatedUser = findById(user.getId());
+        updatedUser.setDateUpdate(new Date());
+        updatedUser.setUsername(user.getUsername());
+        updatedUser.setPassword(user.getPassword());
+        return repository.save(updatedUser);
     }
 
     public void delete(Long id) {
