@@ -1,4 +1,4 @@
-package br.com.lsant.postApi.api.requests;
+package br.com.lsant.postApi.data.requests;
 
 import br.com.lsant.postApi.domain.models.AbstractEntity;
 import com.fasterxml.jackson.annotation.JsonProperty;

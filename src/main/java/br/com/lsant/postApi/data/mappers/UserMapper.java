@@ -1,6 +1,6 @@
-package br.com.lsant.postApi.api.mappers;
+package br.com.lsant.postApi.data.mappers;
 
-import br.com.lsant.postApi.api.requests.UserRequestBody;
+import br.com.lsant.postApi.data.requests.UserRequestBody;
 import br.com.lsant.postApi.domain.models.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

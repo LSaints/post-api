@@ -1,7 +1,7 @@
-package br.com.lsant.postApi.api.controllers;
+package br.com.lsant.postApi.data.controllers;
 
-import br.com.lsant.postApi.api.mappers.UserMapper;
-import br.com.lsant.postApi.api.requests.UserRequestBody;
+import br.com.lsant.postApi.data.mappers.UserMapper;
+import br.com.lsant.postApi.data.requests.UserRequestBody;
 import br.com.lsant.postApi.domain.models.User;
 import br.com.lsant.postApi.domain.services.UserServices;
 import lombok.RequiredArgsConstructor;
