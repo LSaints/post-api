@@ -17,6 +17,14 @@ public class CommentServices {
         return repository.findAll();
     }
 
+    public List<Comment> findByAuthorId(Long id) {
+        return repository.findByAuthorId(id);
+    }
+
+    public List<Comment> findByPostId(Long id) {
+        return repository.findByPostId(id);
+    }
+
     public Comment findById(Long id) {
         return repository.findById(id).orElseThrow(() -> new RuntimeException(
                 "Post not found ID:" + id + ", Type: " + Comment.class.getName()
@@ -30,9 +38,9 @@ public class CommentServices {
 
     public Comment update(Comment comment) {
         Comment updatedComment = findById(comment.getId());
-        comment.setDateUpdate(new Date());
-        comment.setContent(comment.getContent());
-        return repository.save(comment);
+        updatedComment.setDateUpdate(new Date());
+        updatedComment.setContent(comment.getContent());
+        return repository.save(updatedComment);
     }
 
     public void delete(Long id) {
