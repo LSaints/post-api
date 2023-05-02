@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CommentRequestBody extends AbstractEntity {
-    private String contentComment;
+    private String content;
     private Post post;
     private User author;
 }

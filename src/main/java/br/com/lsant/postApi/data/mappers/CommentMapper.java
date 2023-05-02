@@ -12,6 +12,6 @@ public interface CommentMapper {
     CommentMapper INSTANCE = Mappers.getMapper(CommentMapper.class);
 
     CommentRequestBody toCommentBodyRequst(Comment comment);
-    List<CommentRequestBody> toCommentRequestBodyList(Comment comment);
+    List<CommentRequestBody> toCommentRequestBodyList(List<Comment> comments);
     Comment toComment(CommentRequestBody commentRequestBody);
 }
