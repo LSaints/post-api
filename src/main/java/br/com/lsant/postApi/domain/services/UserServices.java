@@ -2,6 +2,7 @@ package br.com.lsant.postApi.domain.services;
 
 import br.com.lsant.postApi.domain.models.User;
 import br.com.lsant.postApi.domain.repositories.UserRepository;
+import br.com.lsant.postApi.domain.services.exceptions.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,7 @@ public class UserServices {
     }
 
     public User findById(Long id) {
-        return repository.findById(id).orElseThrow(() -> new RuntimeException(
+        return repository.findById(id).orElseThrow(() -> new EntityNotFoundException(
                 "User not found ID:" + id + ", Type: " + User.class.getName()
         ));
     }
@@ -40,7 +41,7 @@ public class UserServices {
         try {
             repository.deleteById(id);
         } catch (Exception e) {
-            throw new RuntimeException("Cannot delete this entity in application");
+            throw new EntityNotFoundException("Cannot delete this entity in application");
         }
     }
 }

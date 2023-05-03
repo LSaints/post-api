@@ -2,6 +2,7 @@ package br.com.lsant.postApi.domain.services;
 
 import br.com.lsant.postApi.domain.models.Post;
 import br.com.lsant.postApi.domain.repositories.PostRepository;
+import br.com.lsant.postApi.domain.services.exceptions.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +23,7 @@ public class PostServices {
     }
 
     public Post findById(Long id) {
-        return repository.findById(id).orElseThrow(() -> new RuntimeException(
+        return repository.findById(id).orElseThrow(() -> new EntityNotFoundException(
                 "Post not found ID:" + id + ", Type: " + Post.class.getName()
         ));
     }
@@ -44,7 +45,7 @@ public class PostServices {
         try {
             repository.deleteById(id);
         } catch (Exception e) {
-            throw new RuntimeException("Cannot delete this entity in application");
+            throw new EntityNotFoundException("Cannot delete this entity in application");
         }
     }
 
