@@ -1,7 +1,8 @@
 package br.com.lsant.postApi.data.controllers;
 
 import br.com.lsant.postApi.data.mappers.PostMapper;
-import br.com.lsant.postApi.data.requests.PostRequestBody;
+import br.com.lsant.postApi.data.requests.PostPostRequestBody;
+import br.com.lsant.postApi.data.requests.PostPutRequestBody;
 import br.com.lsant.postApi.domain.models.Post;
 import br.com.lsant.postApi.domain.services.PostServices;
 import lombok.RequiredArgsConstructor;
@@ -21,36 +22,36 @@ public class PostController {
     private final PostMapper mapper;
 
     @GetMapping
-    public ResponseEntity<List<PostRequestBody>> findAll() {
+    public ResponseEntity<List<PostPostRequestBody>> findAll() {
         return new ResponseEntity<>(mapper.toPostRequestBodyList(services.findAll()), HttpStatus.OK);
     }
 
     @GetMapping("/author/{id}")
-    public ResponseEntity<List<PostRequestBody>> findByAuthorId(@PathVariable Long id) {
+    public ResponseEntity<List<PostPostRequestBody>> findByAuthorId(@PathVariable Long id) {
         return new ResponseEntity<>(mapper.toPostRequestBodyList(services.findByAuthorId(id)), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PostRequestBody> findById(@PathVariable Long id) {
+    public ResponseEntity<PostPostRequestBody> findById(@PathVariable Long id) {
         return new ResponseEntity<>(mapper.toPostRequestBody(services.findById(id)), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<Post> save(@RequestBody PostRequestBody postRequestBody) {
-        return new ResponseEntity<>(services.save(mapper.toPost(postRequestBody)), HttpStatus.CREATED);
+    public ResponseEntity<Post> save(@RequestBody PostPostRequestBody postPostRequestBody) {
+        return new ResponseEntity<>(services.save(mapper.toPost(postPostRequestBody)), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Post> update(@RequestBody PostRequestBody postRequestBody, @PathVariable Long id) {
-        postRequestBody.setId(id);
-        postRequestBody.setDateUpdate(new Date());
-        return new ResponseEntity<>(services.update(mapper.toPost(postRequestBody)), HttpStatus.NO_CONTENT);
+    public ResponseEntity<Post> update(@RequestBody PostPutRequestBody postPutRequestBody, @PathVariable Long id) {
+        postPutRequestBody.setId(id);
+        postPutRequestBody.setDateUpdate(new Date());
+        return new ResponseEntity<>(services.update(mapper.toPost(postPutRequestBody)), HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping
     public ResponseEntity<Void> delete(Long id) {
-       PostRequestBody postRequestBody = mapper.toPostRequestBody(services.findById(id));
-       services.delete(postRequestBody.getId());
+       PostPostRequestBody postPostRequestBody = mapper.toPostRequestBody(services.findById(id));
+       services.delete(postPostRequestBody.getId());
        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
