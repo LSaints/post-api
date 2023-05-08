@@ -3,6 +3,8 @@ package br.com.lsant.postApi.domain.models.enums;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.Objects;
+
 @AllArgsConstructor
 @Getter
 public enum ProfilesEnum {
@@ -11,4 +13,16 @@ public enum ProfilesEnum {
 
     private final Integer code;
     private final String description;
+
+    public static ProfilesEnum toEnum(Integer code) {
+
+        if(Objects.isNull(code))
+            return null;
+
+        for (ProfilesEnum x : ProfilesEnum.values()) {
+            if(code.equals(x.getCode()))
+                return x;
+        }
+        throw new IllegalArgumentException("Invalid code: " + code);
+    }
 }
