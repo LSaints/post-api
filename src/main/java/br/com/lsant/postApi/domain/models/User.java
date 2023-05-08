@@ -7,9 +7,11 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import static br.com.lsant.postApi.domain.models.User.TABLE_NAME;
 
+@EqualsAndHashCode(callSuper = true)
 @Table(name = TABLE_NAME)
 @Entity
 @Data
