@@ -15,7 +15,6 @@ public class ErrorResponse implements Serializable {
     private String message;
     private String path;
 
-    public ErrorResponse() {
-    }
+    public ErrorResponse() {}
 
 }
