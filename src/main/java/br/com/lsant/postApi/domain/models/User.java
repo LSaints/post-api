@@ -1,5 +1,6 @@
 package br.com.lsant.postApi.domain.models;
 
+import br.com.lsant.postApi.domain.enums.ProfilesEnum;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
@@ -9,6 +10,7 @@ import lombok.EqualsAndHashCode;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static br.com.lsant.postApi.domain.models.User.TABLE_NAME;
 
@@ -28,5 +30,19 @@ public class User extends AbstractEntity {
     @NotNull(message = "Field cannot be null")
     @NotEmpty(message = "Field cannot be Empty")
     private String password;
+
+    @Column(name = "profile", nullable = false)
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_profile")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Set<Integer> profiles = new HashSet<>();
+
+    public Set<ProfilesEnum> getProfiles() {
+        return this.profiles.stream().map(x -> ProfilesEnum.toEnum(x)).collect(Collectors.toSet());
+    }
+
+    public void addProfile(ProfilesEnum profilesEnum) {
+        this.profiles.add(profilesEnum.getCode());
+    }
 
 }
