@@ -1,13 +1,14 @@
 package br.com.lsant.postApi.domain.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.util.HashSet;
+import java.util.Set;
 
 import static br.com.lsant.postApi.domain.models.User.TABLE_NAME;
 
@@ -24,8 +25,8 @@ public class User extends AbstractEntity {
     private String username;
 
     @Column(name = "password", length = 60, nullable = false)
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotNull(message = "Field cannot be null")
     @NotEmpty(message = "Field cannot be Empty")
     private String password;
+
 }

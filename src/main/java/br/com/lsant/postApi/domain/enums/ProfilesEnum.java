@@ -1,4 +1,4 @@
-package br.com.lsant.postApi.domain.models.enums;
+package br.com.lsant.postApi.domain.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
