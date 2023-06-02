@@ -29,6 +29,7 @@ public class User extends AbstractEntity {
     @Column(name = "password", length = 60, nullable = false)
     @NotNull(message = "Field cannot be null")
     @NotEmpty(message = "Field cannot be Empty")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @Column(name = "profile", nullable = false)

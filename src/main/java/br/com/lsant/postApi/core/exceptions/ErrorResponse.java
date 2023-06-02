@@ -10,11 +10,22 @@ import java.time.Instant;
 @Setter
 public class ErrorResponse implements Serializable {
     private Instant timestamp;
-    private int status;
+    private Integer status;
     private String error;
     private String message;
     private String path;
 
-    public ErrorResponse() {}
+    public ErrorResponse() {
+    }
+
+    public ErrorResponse(Integer status, String message) {
+        this.status = status;
+        this.message = message;
+    }
+
+    public String toJson() {
+        return "{\"status\": " + getStatus() + ", " +
+                "\"message\": \"" + getMessage() + "\"}";
+    }
 
 }

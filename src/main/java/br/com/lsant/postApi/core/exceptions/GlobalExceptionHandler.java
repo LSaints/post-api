@@ -1,17 +1,23 @@
 package br.com.lsant.postApi.core.exceptions;
 
 import br.com.lsant.postApi.domain.services.exceptions.EntityNotFoundException;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import java.io.IOException;
 import java.time.Instant;
 
 @RestControllerAdvice
-public class GlobalExceptionHandler {
+public class GlobalExceptionHandler extends ResponseEntityExceptionHandler implements AuthenticationFailureHandler {
 
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<ErrorResponse> handlerConstraintViolationException(
@@ -38,4 +44,15 @@ public class GlobalExceptionHandler {
 
     }
 
+    @Override
+    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
+                                        AuthenticationException exception) throws IOException, ServletException {
+        Integer status = HttpStatus.FORBIDDEN.value();
+        response.setStatus(status);
+        response.setContentType("application/json");
+        ErrorResponse errorResponse = new ErrorResponse(status, "Username or password are invalid");
+        response.getWriter().append(errorResponse.toJson());
+    }
 }
+
+

@@ -12,33 +12,29 @@ import java.util.Objects;
 
 @Component
 public class JWTUtil {
-
     @Value("${jwt.secret}")
-    private String SECRET;
+    private String secret;
 
     @Value("${jwt.expiration}")
-    private Long EXPIRATION;
+    private Long expiration;
 
-    private SecretKey getKeyBySecret() {
-        return Keys.hmacShaKeyFor(this.SECRET.getBytes());
-    }
-
-    private String generateToken(String username) {
+    public String generateToken(String username) {
         SecretKey key = getKeyBySecret();
         return Jwts.builder()
                 .setSubject(username)
-                .setExpiration(new Date(System.currentTimeMillis() + this.EXPIRATION))
+                .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(key)
                 .compact();
     }
 
-    public boolean isValidToken(String token) {
+    public Boolean isValidToken(String token) {
         Claims claims = getClaims(token);
         if(Objects.nonNull(claims)) {
             String username = claims.getSubject();
             Date expirationDate = claims.getExpiration();
             Date now = new Date(System.currentTimeMillis());
-            return Objects.nonNull(username) && Objects.nonNull(expirationDate) && now.before(expirationDate);
+            if(Objects.nonNull(username) && Objects.nonNull(expirationDate) && now.before(expirationDate))
+                return true;
         }
         return false;
     }
@@ -50,5 +46,18 @@ public class JWTUtil {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    public String getUsername(String token) {
+        Claims claims = getClaims(token);
+        if (Objects.nonNull(claims))
+            return claims.getSubject();
+        return null;
+    }
+
+
+    private SecretKey getKeyBySecret() {
+        SecretKey key = Keys.hmacShaKeyFor(secret.getBytes());
+        return key;
     }
 }
